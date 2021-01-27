@@ -1,49 +1,41 @@
 <?php
 
-//$input = "hbhddb?";
-function creating_question_correcting_bot($question){
+$question = $_POST['question'];
+
+//ВАЖНО РАБОТИ И КАТО ЕДНО!
+function correcting_question($input){
+	 // $comma = ",";
+	 // $interval = ' ';
+   //$input = str_replace($comma, "," . $interval, $input);
     
-    $new_question = str_split($question);
-      $count_question = count($new_question);
+     //Correcting spacing around punctuation
+     $comma_interval = ',' . ' ';
 
-      $stripped = preg_replace('/\s+/', ' ', $question);
-      return trim($stripped);
+     $input = preg_replace('/\s*,\s*/', $comma_interval, $input);
 
-      $new_question = str_split($question);
-      $comma = ",";
-      $space = ' ';
+     //Correcting whitespace
+     $input = preg_replace('/\s+/', ' ', $input);
 
-      $flag = true;
+     //Correcting question mark
+     $input = preg_replace('/\?+/', '?', $input);
 
-
-    if (ctype_upper($question)) {
-      trim(ucfirst(strtolower($question)));
-      $flag = true;
-    }else{
-      trim(ucfirst($question));
-      $flag = false;
-      //break;
-    }
-
-    if ( $new_question[$count_question-1] == "?") {
-   //     //echo $questions;
-   $flag = true;
-    }
-
-      // ctype_upper($questions);
-      // return ($questions);
-
-    // if(in_array(",", $new_question)){
-    //     echo $comma . $space;
-    // }
-
-    if ($flag == true) {
-      echo trim(ucfirst(strtolower($question))); 
-      echo $question;
-    }else{
-      echo trim(ucfirst($question));
-    }
-
+      $mark = '?';
+      //$mark = strlen($input) -1; 
+        if(!function_exists($mark)) {
+          return ucfirst(trim($input)) . $mark;
+        }
+        
+        return ucfirst(trim($input))м
 }
-$input = "dndbd?";
-echo creating_question_correcting_bot($input);
+echo "<pre>";
+echo "Submitted question:" . $question;
+echo "<br>";
+echo "Corrected question:" . correcting_question($question);
+echo "</pre>";
+
+// else{
+//           return ucfirst(trim($input)) . str_replace($mark, '', $input);
+//        }
+// else{
+       //  preg_replace($mark, $input, $input);
+       // }
